@@ -74,12 +74,8 @@ WSGI_APPLICATION = 'cicd_django.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'cicd_django_db',
-        'USER': 'cicd',
-        'PASSWORD': 'cicd',
-        'HOST': 'postgresdb',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / "db.sqlite3",
     }
 }
 
