@@ -29,27 +29,31 @@ pipeline {
         // }
         stage('Build') {
             steps {
-                echo 'Building...'
-                docker build -t $repository:$IMAGE_TAG .
+                script {
+                    sh 'docker build -t $repository:$IMAGE_TAG .'
+                }
             }
         }
         stage('Login to Docker Hub') {
             steps {
-                echo 'Logging in to Docker Hub...'
-                docker login -u $DOCKER_HUB_CREDENTIALS_USR -p $DOCKER_HUB_CREDENTIALS_PSW
+                script {
+                    sh 'docker login -u $DOCKER_HUB_CREDENTIALS_USR -p $DOCKER_HUB_CREDENTIALS_PSW'
+                }
             }
         }
         stage('Push to Docker Hub') {
             steps {
-                echo 'Pushing to Docker Hub...'
-                docker push $repository:$IMAGE_TAG
+                script {
+                    sh 'docker push $repository:$IMAGE_TAG'
+                }
             }
         }
         stage('Clean Up') {
             steps {
-                echo 'Cleaning up...'
-                docker system prune -f
-                docker volume prune -f
+                script {
+                    sh 'docker system prune -f'
+                    sh 'docker volume prune -f'
+                }
             }
         }
     }
